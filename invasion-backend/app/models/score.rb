@@ -4,6 +4,8 @@ class Score < ApplicationRecord
 
   scope :highest_score, -> { order('value desc').limit(1) }
   scope :leaderboard, -> { order('value desc').limit(10) }
+  scope :order_all_desc, -> { order('value desc') }
+  scope :order_all_asc, -> { order(:value) }
 
   def self.leaderboard_users_and_scores
     high_scores = Score.leaderboard
