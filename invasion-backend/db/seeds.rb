@@ -16,7 +16,7 @@ max = 500
 
 # create users with a random score
 20.times do
-  user = User.create(username: Faker::Twitter.screen_name, password: "password")
+  user = User.create(username: Faker::Twitter.screen_name)
   user.scores << Score.create(value: rand(min...max))
 end
 
