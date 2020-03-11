@@ -5,14 +5,7 @@ class ScoresController < ApplicationController
   end
 
   def leaderboard
-    high_scores = Score.leaderboard
-    users_and_scores = high_scores.collect do |score|
-      {
-        value: score.value,
-        username: User.find_by(id: score.user_id).username
-      }
-    end
-
+    users_and_scores = Score.leaderboard_users_and_scores
     render json: users_and_scores
   end
 end
