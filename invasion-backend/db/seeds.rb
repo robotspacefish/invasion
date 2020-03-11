@@ -5,3 +5,26 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'faker'
+
+User.delete_all
+Score.delete_all
+
+min = 10
+max = 500
+
+# create users with a random score
+20.times do
+  user = User.create(username: Faker::Twitter.screen_name, password: "password")
+  user.scores << Score.create(value: rand(min...max))
+end
+
+# add random amount of additional scores per user
+10.times do
+  User.all.each do |user|
+    if rand() >= 0.5
+      user.scores << Score.create(value: rand(min...max))
+    end
+  end
+end
