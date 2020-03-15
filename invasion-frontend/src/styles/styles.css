@@ -1,0 +1,18 @@
+body {
+  height: 100vh;
+}
+
+main {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#screen-bg {
+  background: url('../assets/space_bg.png');
+}
+
+#screen {
+  border: 1px solid black;
+}
