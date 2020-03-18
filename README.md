@@ -2,6 +2,8 @@
 
 A game about my dog Penny, dreaming of battling squirrels in space. Invasion was built with JavaScript on the frontend and Rails on the backend.
 
+<img src="./screenshot.png" alt="gameplay" width="600" height="auto" />
+
 ## Installation
 Clone project
 
