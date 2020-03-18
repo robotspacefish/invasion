@@ -1,4 +1,5 @@
 import { GAME_HEIGHT } from "./index";
+import Game from "./game";
 
 export default class GameObject {
   static all = [];
@@ -35,7 +36,6 @@ export default class GameObject {
     const pType = this.type, oType = obj.type;
 
     return (pType === "player" && oType === "enemy") ||
-      (pType === "enemy" && oType === "player") ||
       (pType === "player" && oType === "enemyBullet") ||
       (pType === "playerBullet" && oType === "enemy");
   }
@@ -43,14 +43,23 @@ export default class GameObject {
   handleCollision(obj) {
     this.collided = true;
     obj.collided = true;
-
+    const player = this.getPlayerObj();
     if (this.type === "playerBullet") {
-      const player = GameObject.all.find(o => o.type === "player");
       player.addPoint();
+      Game.renderScoreUI(player.points);
+    }
+
+    if (this.type === "player") {
+      player.isHit = true;
     }
   }
 
+  getPlayerObj() {
+    return GameObject.all.find(o => o.type === "player");
+  }
+
   checkForCollision() {
+    // separate 'this' object from all other objects
     let otherObjects = [];
     if (this.type === "playerBullet") {
       otherObjects = GameObject.all.filter(o => o.type === "enemy");

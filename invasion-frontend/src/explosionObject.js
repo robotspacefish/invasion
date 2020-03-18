@@ -1,13 +1,19 @@
 import GameObject from './gameObject';
 import AnimatedSpriteObject from './animatedSpriteObject';
 import explosion from './assets/explosionsheet.png';
+import { getRandomExplosionSound } from './utils';
 
 export default class ExplosionObject extends GameObject {
   constructor(explodedObject) {
-    console.log('creating explosion...')
     super();
     this.type = "explosion";
     this.spriteObj = this.init(explodedObject);
+  }
+
+  static createExplosion(obj) {
+    new ExplosionObject(obj);
+    const sound = new Audio(getRandomExplosionSound());
+    sound.play();
   }
 
   init(explodedObject) {

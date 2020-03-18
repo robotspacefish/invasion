@@ -1,6 +1,7 @@
 import GameObject from './gameObject';
 import BulletObject from './bulletObject';
 import SpriteObject from './spriteObject';
+import ExplosionObject from './explosionObject';
 import { GAME_WIDTH, GAME_HEIGHT } from './index';
 import { mid } from './utils';
 import bark from './assets/audio/dog-bark-3.mp3';
@@ -18,7 +19,7 @@ export default class Player extends GameObject {
     this.shootSound = new Audio(bark);
     this.type = "player";
     this.points = 0;
-    this.scoreBar = document.getElementById('score-bar')
+    this.isHit = false;
   }
 
   static initObj() {
@@ -40,11 +41,15 @@ export default class Player extends GameObject {
 
   addPoint() {
     this.points++;
-    this.renderScore();
   }
 
   update() {
     super.update();
+
+    if (this.collided) {
+      ExplosionObject.createExplosion(this);
+    }
+
     this.dx *= Player.friction;
 
     if (this.moveLeft && !this.moveRight) {
@@ -85,9 +90,5 @@ export default class Player extends GameObject {
     const { x, y, width } = this.spriteObj;
     if (x <= 0) this.spriteObj.x = 0;
     if (x + width >= GAME_WIDTH) this.spriteObj.x = GAME_WIDTH - this.spriteObj.width;
-  }
-
-  renderScore() {
-    this.scoreBar.innerHTML = this.points;
   }
 }

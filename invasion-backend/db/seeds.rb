@@ -11,11 +11,13 @@ require 'faker'
 User.delete_all
 Score.delete_all
 
-min = 10
-max = 500
+# min = 24
+# max = 40
+min = 3
+max = 7
 
 # create users with a random score
-20.times do
+5.times do
   user = User.create(username: Faker::Twitter.screen_name)
   user.scores << Score.create(value: rand(min...max))
 end
